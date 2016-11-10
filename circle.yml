@@ -1,0 +1,56 @@
+machine: 
+  java:
+    version: oraclejdk8
+
+dependencies:
+  cache_directories:
+    - "~/.ivy2/cache"
+    - "~/.sbt/boot"
+  pre:
+    - find ~/.sbt -name "*.lock" | xargs -r rm
+    - find ~/.ivy2 -name "ivydata-*.properties" | xargs -r rm
+  override:
+    - sbt coverage +test:compile
+
+test:
+  override: 
+    - sbt coverage +test
+    - sbt +coverageReport
+    - sbt +coverageAggregate
+  post:
+    - mkdir -p $CIRCLE_ARTIFACTS/scala-2.10
+    - mv target/scala-2.10/coverage-report  $CIRCLE_ARTIFACTS/scala-2.10/coverage-report
+    - mv target/scala-2.10/scoverage-report $CIRCLE_ARTIFACTS/scala-2.10/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/scala-2.11
+    - mv target/scala-2.11/coverage-report  $CIRCLE_ARTIFACTS/scala-2.11/coverage-report
+    - mv target/scala-2.11/scoverage-report $CIRCLE_ARTIFACTS/scala-2.11/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/scala-2.12
+    - mv target/scala-2.12/coverage-report  $CIRCLE_ARTIFACTS/scala-2.12/coverage-report
+    - mv target/scala-2.12/scoverage-report $CIRCLE_ARTIFACTS/scala-2.12/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module1/scala-2.10
+    - mv module1/target/scala-2.10/coverage-report  $CIRCLE_ARTIFACTS/module1/scala-2.10/coverage-report
+    - mv module1/target/scala-2.10/scoverage-report $CIRCLE_ARTIFACTS/module1/scala-2.10/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module1/scala-2.11
+    - mv module1/target/scala-2.11/coverage-report  $CIRCLE_ARTIFACTS/module1/scala-2.11/coverage-report
+    - mv module1/target/scala-2.11/scoverage-report $CIRCLE_ARTIFACTS/module1/scala-2.11/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module1/scala-2.12
+    - mv module1/target/scala-2.12/coverage-report  $CIRCLE_ARTIFACTS/module1/scala-2.12/coverage-report
+    - mv module1/target/scala-2.12/scoverage-report $CIRCLE_ARTIFACTS/module1/scala-2.12/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module2/scala-2.10
+    - mv module2/target/scala-2.10/coverage-report  $CIRCLE_ARTIFACTS/module2/scala-2.10/coverage-report
+    - mv module2/target/scala-2.10/scoverage-report $CIRCLE_ARTIFACTS/module2/scala-2.10/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module2/scala-2.11
+    - mv module2/target/scala-2.11/coverage-report  $CIRCLE_ARTIFACTS/module2/scala-2.11/coverage-report
+    - mv module2/target/scala-2.11/scoverage-report $CIRCLE_ARTIFACTS/module2/scala-2.11/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module2/scala-2.12
+    - mv module2/target/scala-2.12/coverage-report  $CIRCLE_ARTIFACTS/module2/scala-2.12/coverage-report
+    - mv module2/target/scala-2.12/scoverage-report $CIRCLE_ARTIFACTS/module2/scala-2.12/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module3/scala-2.10
+    - mv module3/target/scala-2.10/coverage-report  $CIRCLE_ARTIFACTS/module3/scala-2.10/coverage-report
+    - mv module3/target/scala-2.10/scoverage-report $CIRCLE_ARTIFACTS/module3/scala-2.10/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module3/scala-2.11
+    - mv module3/target/scala-2.11/coverage-report  $CIRCLE_ARTIFACTS/module3/scala-2.11/coverage-report
+    - mv module3/target/scala-2.11/scoverage-report $CIRCLE_ARTIFACTS/module3/scala-2.11/scoverage-report
+    - mkdir -p $CIRCLE_ARTIFACTS/module3/scala-2.12
+    - mv module3/target/scala-2.12/coverage-report  $CIRCLE_ARTIFACTS/module3/scala-2.12/coverage-report
+    - mv module3/target/scala-2.12/scoverage-report $CIRCLE_ARTIFACTS/module3/scala-2.12/scoverage-report
